@@ -1,0 +1,37 @@
+{
+  "name": "@nick.thijssen/frontend",
+  "version": "1.0.0",
+  "description": "Frontend for the Terminal project that uses SignalR for real-time communication.",
+  "style": "./css/terminal.css",
+  "main": "./lib/cjs/Terminal.js",
+  "types": "./lib/esm/Terminal.d.ts",
+  "module": "./lib/esm/Terminal.js",
+  "author": {
+    "name": "Nick Thijssen"
+  },
+  "files": [
+    "lib",
+    "css",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "prepublish": "npm run tsc",
+    "publish": "npm publish"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5",
+    "webpack": "^5.51.1"
+  },
+  "dependencies": {
+    "@microsoft/signalr": "^6.0.0-preview.7.21378.6",
+    "@microsoft/signalr-protocol-msgpack": "^6.0.0-preview.7.21378.6",
+    "rxjs": "^7.3.0",
+    "xterm": "^4.13.0",
+    "xterm-addon-attach": "^0.6.0",
+    "xterm-addon-fit": "^0.5.0",
+    "xterm-addon-unicode11": "^0.2.0",
+    "xterm-addon-web-links": "^0.4.0"
+  }
+}

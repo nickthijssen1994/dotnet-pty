@@ -1,0 +1,59 @@
+.terminal-dashboard-container {
+  display: flex;
+  height: 95%;
+  width: 100%;
+}
+
+.terminal-container {
+  width: 65%;
+}
+
+.input-container {
+  width: 35%;
+}
+
+.mat-card {
+  height: 100%;
+  margin: 10px;
+  padding: 10px;
+}
+
+.mat-card-content {
+  height: 100%;
+}
+
+#signal-terminal-container {
+  height: 100%;
+}
+
+.connection-form {
+  display: flex;
+}
+
+.run-command-form {
+  display: flex;
+}
+
+.readline-form {
+  display: flex;
+}
+
+.run-command-ui-form {
+  /*display: flex;*/
+}
+
+.mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+  height: inherit;
+  margin: 10px;
+  margin-bottom: 20px;
+  width: 30%;
+}
+
+.form {
+  width: 100%;
+}
+
+.mat-form-field {
+  margin-top: 10px;
+  width: 100%;
+}

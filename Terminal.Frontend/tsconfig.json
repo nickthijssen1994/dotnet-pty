@@ -1,0 +1,30 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ES2020",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./lib/esm",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "inlineSources": true,
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "noEmitOnError": true,
+    "skipLibCheck": true,
+    "stripInternal": true,
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
+    "baseUrl": "."
+  },
+  "include": [
+    "./src"
+  ]
+}

@@ -1,0 +1,15 @@
+.mat-toolbar {
+  background: rgba(1, 36, 86, 0.66);
+}
+
+.mat-toolbar span {
+  margin: 0 10px;
+}
+
+.mat-toolbar span a {
+  color: white;
+}
+
+.content {
+  height: 90%;
+}

@@ -1,0 +1,6 @@
+﻿{
+  "env": {
+    "name": "dev"
+  },
+  "baseUrl": "https://localhost:5001/terminal"
+}

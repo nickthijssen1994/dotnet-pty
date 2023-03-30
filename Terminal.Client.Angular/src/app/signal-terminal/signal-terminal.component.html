@@ -1,0 +1,97 @@
+<div class="terminal-dashboard-container">
+  <mat-card class="terminal-container">
+    <mat-card-content>
+      <div id="signal-terminal-container"></div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="input-container">
+    <mat-card-content class="terminal-input">
+
+      <form class="connection-form">
+        <mat-form-field appearance="fill">
+          <mat-label>URL</mat-label>
+          <input [(ngModel)]="serverAddress" [disabled]="IsConnected()" matInput name="serverAddress" type="text">
+        </mat-form-field>
+        <button (click)="connectWithTerminal()" *ngIf="!IsConnected()" mat-raised-button>Connect</button>
+        <button (click)="disconnectWithTerminal()" *ngIf="IsConnected()" mat-raised-button>Disconnect</button>
+      </form>
+      <mat-form-field *ngIf="serverTerminal.terminalExecutables" appearance="fill">
+        <mat-label>Terminal Executable</mat-label>
+        <mat-select (selectionChange)="updateSelectedTerminal()" [(ngModel)]="selectedTerminal"
+                    [disabled]="!IsConnected()"
+                    name="selectedTerminal">
+          <mat-option *ngFor="let terminal of serverTerminal.terminalExecutables" [value]="terminal">
+            {{terminal}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <form (ngSubmit)="sendRunCommand()" class="run-command-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Full Command</mat-label>
+          <input [(ngModel)]="fullcommand" [disabled]="!IsConnected()" matInput name="fullCommand" type="text">
+        </mat-form-field>
+        <button [disabled]="!IsConnected()" mat-raised-button>Run</button>
+      </form>
+      <form (ngSubmit)="sendCommandLineInput()" class="readline-form">
+        <mat-form-field appearance="fill">
+          <mat-label>ReadLine Input</mat-label>
+          <input [(ngModel)]="rawInput" [disabled]="!IsConnected()" matInput name="rawInput" type="text">
+        </mat-form-field>
+        <button [disabled]="!IsConnected()" mat-raised-button>Send</button>
+      </form>
+      <form (ngSubmit)="sendRunCommandFromUI()" class="run-command-ui-form">
+        <mat-form-field *ngIf="serverTerminal.rootCommand" appearance="fill">
+          <mat-label>Root Option</mat-label>
+          <mat-select (selectionChange)="updateFullCommand()" [(ngModel)]="selectedRootOption"
+                      [disabled]="!IsConnected()"
+                      name="selectedOption">
+            <mat-option value="">None</mat-option>
+            <mat-option *ngFor="let option of serverTerminal.rootCommand.options" [value]="option">
+              {{option.aliases.join(", ")}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="serverTerminal.rootCommand" appearance="fill">
+          <mat-label>Command</mat-label>
+          <mat-select (selectionChange)="updateFullCommand()" [(ngModel)]="selectedCommand" [disabled]="!IsConnected()"
+                      name="selectedCommand">
+            <mat-option value="">None</mat-option>
+            <mat-option *ngFor="let command of serverTerminal.rootCommand.commands" [value]="command">
+              {{command.aliases.join(", ")}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="selectedCommand" appearance="fill">
+          <mat-label>Command Option</mat-label>
+          <mat-select (selectionChange)="updateFullCommand()" [(ngModel)]="selectedOption" [disabled]="!IsConnected()"
+                      name="selectedOption">
+            <mat-option value="">None</mat-option>
+            <mat-option *ngFor="let option of selectedCommand.options" [value]="option">
+              {{option.aliases.join(", ")}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="selectedCommand?.commands?.length > 0" appearance="fill">
+          <mat-label>Subcommand</mat-label>
+          <mat-select (selectionChange)="updateFullCommand()" [(ngModel)]="selectedSubcommand"
+                      [disabled]="!IsConnected()"
+                      name="selectedSubcommand">
+            <mat-option value="">None</mat-option>
+            <mat-option *ngFor="let subcommand of selectedCommand.commands" [value]="subcommand">
+              {{subcommand.aliases.join(", ")}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="selectedOption" appearance="fill">
+          <mat-label>Argument</mat-label>
+          <input (change)="updateFullCommand()" [(ngModel)]="selectedArgument" [disabled]="!IsConnected()" matInput
+                 name="selectedArgument"
+                 type="text">
+        </mat-form-field>
+        <button [disabled]="!IsConnected()" mat-raised-button>Run</button>
+      </form>
+      <p>Message: {{serverTerminal.message}}</p>
+      <p *ngIf="IsConnected()">Logged In As: {{serverTerminal.username}}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

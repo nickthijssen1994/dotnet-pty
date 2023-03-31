@@ -1,14 +1,12 @@
 {
-  "name": "@nick.thijssen/frontend",
+  "name": "@nickthijssen1994/frontend",
   "version": "1.0.0",
   "description": "Frontend for the Terminal project that uses SignalR for real-time communication.",
   "style": "./css/terminal.css",
   "main": "./lib/cjs/Terminal.js",
   "types": "./lib/esm/Terminal.d.ts",
   "module": "./lib/esm/Terminal.js",
-  "author": {
-    "name": "Nick Thijssen"
-  },
+  "author": "Nick Thijssen",
   "files": [
     "lib",
     "css",
@@ -33,5 +31,17 @@
     "xterm-addon-fit": "^0.5.0",
     "xterm-addon-unicode11": "^0.2.0",
     "xterm-addon-web-links": "^0.4.0"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickthijssen1994/dotnet-pty.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickthijssen1994/dotnet-pty/issues"
+  },
+  "homepage": "https://github.com/nickthijssen1994/dotnet-pty#readme"
 }

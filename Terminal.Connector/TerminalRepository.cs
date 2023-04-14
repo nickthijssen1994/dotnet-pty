@@ -111,8 +111,8 @@ namespace Terminal.Connector
 
 		private async Task CopyConsoleToWindow(string executable, string output)
 		{
+			WriteToBuffer(executable, output);
 			await _terminalController.HandleOutput(executable, output);
-		//	WriteToBuffer(executable, output);
 		}
 
 		private void WriteToBuffer(string executable, string output)

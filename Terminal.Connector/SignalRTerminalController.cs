@@ -53,7 +53,7 @@ namespace Terminal.Connector
 
 		public async Task HandleOutput(string executable,string output)
 		{
-			await _terminalHub.Clients.Group(executable).ReceiveTerminalOutput(output);
+			await _terminalHub.Clients.Group("TerminalUsers").ReceiveTerminalOutput(output);
 		}
 
 		public string GetOutputBuffer(string executable)

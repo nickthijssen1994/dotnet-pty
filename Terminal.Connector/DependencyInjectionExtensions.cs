@@ -42,17 +42,17 @@ namespace Terminal.Connector
 				});
 			});
 
-			services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+		    	services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
 				.AddNegotiate();
-			services.AddAuthorization(options =>
-			{
-				options.AddPolicy("TerminalPolicy", policy =>
-				{
-					policy.AuthenticationSchemes.Add(NegotiateDefaults.AuthenticationScheme);
-					policy.RequireAuthenticatedUser();
-					policy.RequireRole(deploymentOptions.TerminalUserGroup);
-				});
-			});
+			 services.AddAuthorization(options =>
+			 {
+			 	options.AddPolicy("TerminalPolicy", policy =>
+			 	{
+			 		policy.AuthenticationSchemes.Add(NegotiateDefaults.AuthenticationScheme);
+			 		policy.RequireAuthenticatedUser();
+			 		//policy.RequireRole(deploymentOptions.TerminalUserGroup);
+			 	});
+			 });
 			services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 			services.AddSignalR(hubOptions => { hubOptions.EnableDetailedErrors = true; }).AddMessagePackProtocol();
 

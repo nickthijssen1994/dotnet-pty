@@ -18,8 +18,7 @@
       <mat-form-field *ngIf="serverTerminal.terminalExecutables" appearance="fill">
         <mat-label>Terminal Executable</mat-label>
         <mat-select (selectionChange)="updateSelectedTerminal()" [(ngModel)]="selectedTerminal"
-                    [disabled]="!IsConnected()"
-                    name="selectedTerminal">
+                    [disabled]="!IsConnected()" name="selectedTerminal">
           <mat-option *ngFor="let terminal of serverTerminal.terminalExecutables" [value]="terminal">
             {{terminal}}
           </mat-option>
@@ -43,8 +42,7 @@
         <mat-form-field *ngIf="serverTerminal.rootCommand" appearance="fill">
           <mat-label>Root Option</mat-label>
           <mat-select (selectionChange)="updateFullCommand()" [(ngModel)]="selectedRootOption"
-                      [disabled]="!IsConnected()"
-                      name="selectedOption">
+                      [disabled]="!IsConnected()" name="selectedOption">
             <mat-option value="">None</mat-option>
             <mat-option *ngFor="let option of serverTerminal.rootCommand.options" [value]="option">
               {{option.aliases.join(", ")}}
@@ -74,8 +72,7 @@
         <mat-form-field *ngIf="selectedCommand?.commands?.length > 0" appearance="fill">
           <mat-label>Subcommand</mat-label>
           <mat-select (selectionChange)="updateFullCommand()" [(ngModel)]="selectedSubcommand"
-                      [disabled]="!IsConnected()"
-                      name="selectedSubcommand">
+                      [disabled]="!IsConnected()" name="selectedSubcommand">
             <mat-option value="">None</mat-option>
             <mat-option *ngFor="let subcommand of selectedCommand.commands" [value]="subcommand">
               {{subcommand.aliases.join(", ")}}
@@ -85,8 +82,7 @@
         <mat-form-field *ngIf="selectedOption" appearance="fill">
           <mat-label>Argument</mat-label>
           <input (change)="updateFullCommand()" [(ngModel)]="selectedArgument" [disabled]="!IsConnected()" matInput
-                 name="selectedArgument"
-                 type="text">
+                 name="selectedArgument" type="text">
         </mat-form-field>
         <button [disabled]="!IsConnected()" mat-raised-button>Run</button>
       </form>

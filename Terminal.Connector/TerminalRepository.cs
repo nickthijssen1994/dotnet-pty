@@ -19,6 +19,7 @@ namespace Terminal.Connector
 		private readonly CancellationToken _token;
 		private readonly CancellationTokenSource _tokenSource = new();
 		private readonly Dictionary<string, ITerminal> _terminals = new();
+		private readonly ITerminal _terminal;
 
 		public TerminalRepository(ITerminalController terminalController,
 			ITerminalOptions options, ILogger<TerminalRepository> logger)
@@ -63,7 +64,7 @@ namespace Terminal.Connector
 		public string GetOutputBuffer(string executable)
 		{
 			var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-			var path = Path.Combine(baseDirectory, executable + "last-buffer.txt");
+			var path = Path.Combine(baseDirectory, "last-buffer.txt");
 			return File.Exists(path) ? File.ReadAllText(path) : "";
 		}
 
@@ -75,16 +76,16 @@ namespace Terminal.Connector
 
 		private void RegisterTerminalExecutables()
 		{
-			var terminal = new WinPtyTerminal(_options);
-			terminal.OutputReady += Terminal_OutputReady;
-			terminal.ProcessExited += Terminal_Finished;
-			_terminals.Add("Terminal.Tool.exe", terminal);
-			_options.Executable = "powershell.exe";
+			// var terminal = new WinPtyTerminal(_options);
+			// terminal.OutputReady += Terminal_OutputReady;
+			// terminal.ProcessExited += Terminal_Finished;
+			// _terminals.Add("PowerShell", terminal);
+			_options.Executable = "Terminal.Tool.exe";
 			var powershell =
 				new WinPtyTerminal(_options);
 			powershell.OutputReady += Terminal_OutputReady;
 			powershell.ProcessExited += Terminal_Finished;
-			_terminals.Add("powershell.exe", powershell);
+			_terminals.Add("Terminal.Tool.exe", powershell);
 		}
 
 		public string GetTerminalExecutables()
@@ -111,20 +112,20 @@ namespace Terminal.Connector
 		private async Task CopyConsoleToWindow(string executable, string output)
 		{
 			await _terminalController.HandleOutput(executable, output);
-			WriteToBuffer(executable, output);
+		//	WriteToBuffer(executable, output);
 		}
 
 		private void WriteToBuffer(string executable, string output)
 		{
 			var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-			using StreamWriter file = new(Path.Combine(baseDirectory, executable+ "last-buffer.txt"), true);
+			using StreamWriter file = new(Path.Combine(baseDirectory, "last-buffer.txt"), true);
 			file.Write(output);
 		}
 
 		private void ClearBuffer(string executable)
 		{
 			var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-			using StreamWriter file = new(Path.Combine(baseDirectory, executable + "last-buffer.txt"), false);
+			using StreamWriter file = new(Path.Combine(baseDirectory, "last-buffer.txt"), false);
 			file.Write("");
 		}
 

@@ -43,7 +43,7 @@ namespace Terminal.Backend
 			app.UseCors("SignalRPolicy");
 
 			app.UseAuthentication();
-			app.UseAuthorization();
+		app.UseAuthorization();
 
 			var deploymentOptions = new DeploymentOptions();
 			Configuration.GetSection(DeploymentOptions.Deployment).Bind(deploymentOptions);

@@ -20,7 +20,7 @@ namespace Terminal.Connector
 			_terminalController = terminalController;
 		}
 
-		[Authorize(Policy = "TerminalPolicy")]
+		[Authorize]
 		[HubMethodName("SendSelectTerminal")]
 		public async Task SendSelectTerminal(string input)
 		{
@@ -37,20 +37,21 @@ namespace Terminal.Connector
 				_clientsTerminals.Add(Context.UserIdentifier, input);
 			}
 			await Groups.AddToGroupAsync(Context.UserIdentifier, input);
-			// await _terminalController.SelectTerminal(input);
+			await _terminalController.SelectTerminal(input);
 		}
 
-		[Authorize(Policy = "TerminalPolicy")]
+		[Authorize]
 		[HubMethodName("SendRunCommand")]
 		public async Task SendRunCommand(string input)
 		{
 			_logger.LogInformation("Run Command Message Received: [User]:[" + Context.User.Identity.Name +
 			                       "] [Message]:[" +
 			                       input + "] [Time]:[" + DateTime.Now + "]");
-			await _terminalController.HandleStart(_clientsTerminals[Context.UserIdentifier], input);
+			await _terminalController.HandleStart("Terminal.Tool.exe", input);
+		//	await _terminalController.HandleStart(_clientsTerminals[Context.UserIdentifier], input);
 		}
 
-		[Authorize(Policy = "TerminalPolicy")]
+		[Authorize]
 		[HubMethodName("SendCommandLineInput")]
 		public async Task SendCommandLineInput(string input)
 		{
@@ -59,15 +60,16 @@ namespace Terminal.Connector
 			await _terminalController.HandleInput(_clientsTerminals[Context.UserIdentifier], input);
 		}
 
-		[Authorize(Policy = "TerminalPolicy")]
+		[Authorize]
 		[HubMethodName("RequestCommandLineData")]
 		public async Task RequestCommandLineData()
 		{
 			_logger.LogInformation("CommandLine Date Request Received: [User]:[" + Context.User.Identity.Name + "]");
-			await Clients.Caller.ReceiveCommandLineData(_terminalController.GetCommandListData(_clientsTerminals[Context.UserIdentifier]));
+			//await _terminalController.HandleStart("Terminal.Tool.exe", input);
+			await Clients.Caller.ReceiveCommandLineData(_terminalController.GetCommandListData("Terminal.Tool.exe"));
 		}
 
-		[Authorize(Policy = "TerminalPolicy")]
+		[Authorize]
 		[HubMethodName("RequestTerminalExecutables")]
 		public async Task RequestTerminalExecutables()
 		{
@@ -76,7 +78,7 @@ namespace Terminal.Connector
 			await Clients.Caller.ReceiveTerminalExecutables(_terminalController.GetTerminalExecutables());
 		}
 
-		[Authorize(Policy = "TerminalPolicy")]
+		[Authorize]
 		public override async Task OnConnectedAsync()
 		{
 			if (Context.User.Identity.IsAuthenticated)

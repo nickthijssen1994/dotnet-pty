@@ -1,5 +1,5 @@
 export const environment = {
   name: 'prod',
   production: true,
-  terminalURL: 'https://windows-server:5001/terminal'
+  terminalURL: 'https://localhost:5001/terminal'
 };
